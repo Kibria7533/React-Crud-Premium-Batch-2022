@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import url from "../Url"
 const Home = (props) => {
   // http://localhost:4000/api/show
   const [data, setData] = useState([]);
 
   useEffect(async () => {
-    let data = await axios.get("http://localhost:4000/api/show");
+    let data = await axios.get(`${url}/api/show`);
 
     console.log(data.data, "my data from database");
     setData(data.data);

@@ -1,23 +1,29 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { useAlert } from 'react-alert'
 const Form = (props) => {
 const [title,setTitle]=useState('');
 const [author,setAuthor]=useState('');
 const [body ,setBody]=useState('');
 const navigate=useNavigate();
-
+const alert = useAlert()
 const sendDatatoApp=async ()=>{
 
   try{
      let x= await axios.post('http://localhost:4000/api/save',{title,body,author})
-     console.log(x,'success')
+     console.log(x.data,'success')
+     if(!x.data.success){
+      alert.show(x.data.message);
+     }else{
+      navigate('/')
+     }
+    
   }catch(er){
-    console.log(er)
+    console.log(er,'error here')
   }
 
-    navigate('/')
+   
 }
 
   return (
